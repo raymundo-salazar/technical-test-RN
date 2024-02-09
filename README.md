@@ -9,6 +9,11 @@ Desarrollar una aplicación en React Native que muestre un listado de películas
 - Node.js, npm o yarn, y el CLI de React Native instalados.
 - Clave API válida de The Movie Database (TMDb).
 
+## Instrucciones de Inicio
+
+1. Clonar el repositorio principal (proporcionado por la organización) que contiene la estructura base del proyecto (si aplica).
+2. **Crear una rama nueva a partir de `main` utilizando el nombre del candidato** como el nombre de la rama (por ejemplo, `feature/juan-perez`). Esto asegura que el trabajo realizado durante la prueba sea fácilmente identificable y accesible para revisión.
+
 ## Requisitos Funcionales
 
 ### Diseño Atómico
