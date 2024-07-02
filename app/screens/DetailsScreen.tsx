@@ -1,5 +1,5 @@
 import { StackScreenProps } from "@react-navigation/stack";
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -13,6 +13,8 @@ import { RootStackParams } from "../navigation/Navigation";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useMovieDetails } from "../hooks/useMovieDetails";
 import { MovieDetails } from "../components/MovieDetails";
+import { StarButton } from "../components/StarButton";
+import { blue } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
 
 const screenHeight = Dimensions.get("screen").height;
 
@@ -22,6 +24,7 @@ export const DetailsScreen = ({ route, navigation }: Props) => {
   const movie = route.params;
   const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
   const { isLoading, cast, movieFull } = useMovieDetails(movie.id);
+  const [starButtonValue, setStarButtonValue] = useState(false);
   console.log(cast);
 
   return (
@@ -30,6 +33,14 @@ export const DetailsScreen = ({ route, navigation }: Props) => {
         <View style={styles.imageBorder}>
           <Image source={{ uri }} style={styles.posterImage} />
         </View>
+      </View>
+
+      <View style={{ margin: 10, marginLeft: 20 }}>
+        <TouchableOpacity onPress={() => setStarButtonValue(true)}>
+          <Text style={{ color: "blue", fontSize: 16 }}>
+            Agregar a favoritos
+          </Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.marginContainer}>
@@ -50,6 +61,11 @@ export const DetailsScreen = ({ route, navigation }: Props) => {
           <Icon color="white" name="arrow-back-outline" size={60} />
         </TouchableOpacity>
       </View>
+      {starButtonValue && (
+        <View style={styles.starButton}>
+          <StarButton onPress={console.log("")} />
+        </View>
+      )}
     </ScrollView>
   );
 };
@@ -101,5 +117,11 @@ const styles = StyleSheet.create({
     elevation: 9,
     top: 30,
     left: 5,
+  },
+  starButton: {
+    position: "absolute",
+    elevation: 9,
+    top: 30,
+    right: 5,
   },
 });

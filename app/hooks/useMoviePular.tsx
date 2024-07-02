@@ -16,7 +16,7 @@ export const useMoviesPopular = () => {
   });
 
   const getMovies = async () => {
-    const moviesArray = movieDB.get<MovieDBNowResponse>("/popular");
+    const moviesArray = movieDB("/popular");
     const response = await Promise.all([moviesArray]);
     // console.log(response[0].data.results);
     setMoviesState({ popular: response[0].data.results });
