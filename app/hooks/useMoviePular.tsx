@@ -1,16 +1,26 @@
 import { useEffect, useState } from "react";
 import movieDB from "../api/movieDB";
-import { MovieDBResponse } from "../interfaces/movieinterface";
+import {
+  MovieDBPopular,
+  MovieDBNowResponse,
+} from "../interfaces/movieinterface";
+
+interface MovieState {
+  popular: MovieDBPopular[];
+}
 
 export const useMoviesPopular = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [moviesState, setMoviesState] = useState<MovieDBResponse>([]);
+  const [moviesState, setMoviesState] = useState<MovieState>({
+    popular: [],
+  });
 
   const getMovies = async () => {
-    const moviesArray = movieDB.get<MovieDBResponse>("/popular");
-    const responses = await Promise.resolve(moviesArray);
-    // console.log(responses);
-    setMoviesState(responses);
+    const moviesArray = movieDB.get<MovieDBNowResponse>("/popular");
+    const response = await Promise.all([moviesArray]);
+    // console.log(response[0].data.results);
+    setMoviesState({ popular: response[0].data.results });
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -18,6 +28,7 @@ export const useMoviesPopular = () => {
   }, []);
 
   return {
-    moviesState,
+    ...moviesState,
+    isLoading,
   };
 };

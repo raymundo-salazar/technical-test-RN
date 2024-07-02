@@ -1,35 +1,14 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import "react-native-gesture-handler";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { Navigation } from "./app/navigation/Navigation";
 
-import { useEffect, useState } from "react";
-import { useMoviesPopular } from "./app/hooks/useMoviePular";
-
-export default function App() {
-  const { moviesState } = useMoviesPopular();
-
-  // const viewInfo = () => {
-  //   console.log(info);
-  // };
-
-  useEffect(() => {
-    // viewInfo();
-    console.log(moviesState);
-  }, [moviesState]);
-
+export const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>{JSON.stringify(moviesState)}</Text>
-
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Navigation />
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+export default App;
